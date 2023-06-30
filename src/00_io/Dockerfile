@@ -1,6 +1,6 @@
-FROM cpp-sdk
+FROM python-sdk
 
-LABEL MAINTAINER="ssi@mit.edu"
+LABEL MAINTAINER="markn1@stanford.edu"
 
 USER root
 

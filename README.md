@@ -4,14 +4,16 @@ This is the repository for MRF related projects of the Setsompop Lab at Stanford
 ## Usage
 Each directory in `src` can be built into a Docker container that performs one task in the pipeline. By navigating into each directory and running `make` the docker containers will be built with all dependencies. The code can also be run natively, but then you need to manage all dependencies as listed in the Dockerfile for each task. For each task certain input arguments have to be set. The `main.py` file for each task lists input arguments and what format they should be in. Example calls are provided below.
 
-1. `00_io` manages reading ScanArchive files form GE and can write Dicoms with metadata from the ScanArchives. It requires GE's base image `cpp-sdk` (available on the GE user forum) for accessing the ScanArchive data. Add `/mnt/` to the file paths so that the files can be found within the mounted filesystem in Docker.
+1. `00_io` manages reading ScanArchive files form GE and can write Dicoms with metadata from the ScanArchives.
 
-<b>Example call to save raw k-space data from ScanArchive to Numpy Array</b>
+### Example call to save raw k-space data from ScanArchive to Numpy Array
 ```
-docker run -v /:/mnt/:z MRF/scan_archive_io \
-        --scn /mnt/FULL PATH TO SCAN ARCHIVE\
-        --ksp /mnt/FULL PATH TO SAVE LOCATION OF NUMPY ARRAY
+docker run -v $(pwd):$(pwd):z setsompop/scan_archive_io \
+        --scn $(pwd)/rel/path/to/scanarchive.h5 \
+        --ksp $(pwd)/rel/path/to/ksp
 ```
+Running the above creates a file called `ksp.npy`
+
 2. `01_calib` is used to calibrate the MRF reconstruction with data from a pre-scan. It can pre-calculate the coil compression matrix using RoVir from a large FOV acquisition and shift the FOV so that the brain is within the smaller FOV for MRF.
 
 <b>Example call to calculate shifts and coil compressionmatrix from large FOV GRE data</b>

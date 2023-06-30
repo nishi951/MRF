@@ -114,7 +114,7 @@ def main(args):
       noise_path = glob.glob(os.path.join(basePath + "/" + str(hdr["exam_num"]), \
                                           "{0}*.h5".format("NoiseStatistic")))[0]
     else:
-      noise_path = '/mnt/' + args.nsc
+      noise_path = args.nsc
 
     print("> Parsing and saving noise measurement... ", end="", flush=True)
     start_time = time.perf_counter()
