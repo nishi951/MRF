@@ -1,2 +1,2 @@
 default:
-	docker build -t setsompop/scan_archive_io .
+	docker build -t mrf/scan_archive_io .
